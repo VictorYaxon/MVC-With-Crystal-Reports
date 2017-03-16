@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PlanillaDBModelStoreContainer" CdmEntityContainer="PlanillaDBEntities">
+    <EntitySetMapping Name="Bonificacion">
+      <EntityTypeMapping TypeName="PlanillaDBModel.Bonificacion">
+        <MappingFragment StoreEntitySet="Bonificacion">
+          <ScalarProperty Name="idBonificacion" ColumnName="idBonificacion" />
+          <ScalarProperty Name="BonificacionEmpleado" ColumnName="BonificacionEmpleado" />
+          <ScalarProperty Name="fechaBonificacion" ColumnName="fechaBonificacion" />
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleado">
+      <EntityTypeMapping TypeName="PlanillaDBModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Bonificacion" ColumnName="Bonificacion" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Igss">
+      <EntityTypeMapping TypeName="PlanillaDBModel.Igss">
+        <MappingFragment StoreEntitySet="Igss">
+          <ScalarProperty Name="idIgss" ColumnName="idIgss" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="Cuotaigss" ColumnName="Cuotaigss" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="planillaSQL">
+      <EntityTypeMapping TypeName="PlanillaDBModel.planillaSQL">
+        <MappingFragment StoreEntitySet="planillaSQL">
+          <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+          <ScalarProperty Name="BonificacionEmpleado" ColumnName="BonificacionEmpleado" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="CuotaSalarioOrdinario" ColumnName="CuotaSalarioOrdinario" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="RetencionEmpleado" ColumnName="RetencionEmpleado" />
+          <ScalarProperty Name="CuotaIgss" ColumnName="CuotaIgss" />
+          <ScalarProperty Name="liquido" ColumnName="liquido" />
+          <ScalarProperty Name="fechaGenerada" ColumnName="fechaGenerada" />
+          <ScalarProperty Name="mes" ColumnName="mes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RetencionISR">
+      <EntityTypeMapping TypeName="PlanillaDBModel.RetencionISR">
+        <MappingFragment StoreEntitySet="RetencionISR">
+          <ScalarProperty Name="idRetencionISR" ColumnName="idRetencionISR" />
+          <ScalarProperty Name="RetencionEmpleado" ColumnName="RetencionEmpleado" />
+          <ScalarProperty Name="fechaRetencion" ColumnName="fechaRetencion" />
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalarioOrdinario">
+      <EntityTypeMapping TypeName="PlanillaDBModel.SalarioOrdinario">
+        <MappingFragment StoreEntitySet="SalarioOrdinario">
+          <ScalarProperty Name="idSalarioOrdinario" ColumnName="idSalarioOrdinario" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="CuotaSalarioOrdinario" ColumnName="CuotaSalarioOrdinario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="PlanillaDBModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AgregarEmpleado" FunctionName="PlanillaDBModel.Store.sp_AgregarEmpleado" />
+    <FunctionImportMapping FunctionImportName="sp_AgregarIgss" FunctionName="PlanillaDBModel.Store.sp_AgregarIgss" />
+    <FunctionImportMapping FunctionImportName="sp_agregarRetencion" FunctionName="PlanillaDBModel.Store.sp_agregarRetencion" />
+    <FunctionImportMapping FunctionImportName="sp_AgregarSalarioOrdinario" FunctionName="PlanillaDBModel.Store.sp_AgregarSalarioOrdinario" />
+    <FunctionImportMapping FunctionImportName="sp_AutenticarUsuario" FunctionName="PlanillaDBModel.Store.sp_AutenticarUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_AutenticarUsuario_Result">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_EliminarBonificaion" FunctionName="PlanillaDBModel.Store.sp_EliminarBonificaion" />
+    <FunctionImportMapping FunctionImportName="sp_eliminarEmpleados" FunctionName="PlanillaDBModel.Store.sp_eliminarEmpleados" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarIgss" FunctionName="PlanillaDBModel.Store.sp_EliminarIgss" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarRetencion" FunctionName="PlanillaDBModel.Store.sp_EliminarRetencion" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarSalarioOrdinario" FunctionName="PlanillaDBModel.Store.sp_EliminarSalarioOrdinario" />
+    <FunctionImportMapping FunctionImportName="sp_listarBonificacion" FunctionName="PlanillaDBModel.Store.sp_listarBonificacion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_listarBonificacion_Result">
+          <ScalarProperty Name="idBonificacion" ColumnName="idBonificacion" />
+          <ScalarProperty Name="BonificacionEmpleado" ColumnName="BonificacionEmpleado" />
+          <ScalarProperty Name="fechaBonificacion" ColumnName="fechaBonificacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarEmpleados" FunctionName="PlanillaDBModel.Store.sp_ListarEmpleados">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_ListarEmpleados_Result">
+          <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_listarIgss" FunctionName="PlanillaDBModel.Store.sp_listarIgss">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_listarIgss_Result">
+          <ScalarProperty Name="idIgss" ColumnName="idIgss" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="Cuotaigss" ColumnName="Cuotaigss" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarPlanilla" FunctionName="PlanillaDBModel.Store.sp_ListarPlanilla">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_ListarPlanilla_Result">
+          <ScalarProperty Name="idPlanilla" ColumnName="idPlanilla" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="BonificacionEmpleado" ColumnName="BonificacionEmpleado" />
+          <ScalarProperty Name="CuotaSalarioOrdinario" ColumnName="CuotaSalarioOrdinario" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="RetencionEmpleado" ColumnName="RetencionEmpleado" />
+          <ScalarProperty Name="CuotaIgss" ColumnName="CuotaIgss" />
+          <ScalarProperty Name="liquido" ColumnName="liquido" />
+          <ScalarProperty Name="fechaGenerada" ColumnName="fechaGenerada" />
+          <ScalarProperty Name="mes" ColumnName="mes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_listarRetencion" FunctionName="PlanillaDBModel.Store.sp_listarRetencion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_listarRetencion_Result">
+          <ScalarProperty Name="idRetencionISR" ColumnName="idRetencionISR" />
+          <ScalarProperty Name="RetencionEmpleado" ColumnName="RetencionEmpleado" />
+          <ScalarProperty Name="fechaRetencion" ColumnName="fechaRetencion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_listarSalarioOrdinario" FunctionName="PlanillaDBModel.Store.sp_listarSalarioOrdinario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_listarSalarioOrdinario_Result">
+          <ScalarProperty Name="idSalarioOrdinario" ColumnName="idSalarioOrdinario" />
+          <ScalarProperty Name="anio" ColumnName="anio" />
+          <ScalarProperty Name="CuotaSalarioOrdinario" ColumnName="CuotaSalarioOrdinario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ListarUsuarios" FunctionName="PlanillaDBModel.Store.sp_ListarUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PlanillaDBModel.sp_ListarUsuarios_Result">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ModificarBonificacion" FunctionName="PlanillaDBModel.Store.sp_ModificarBonificacion" />
+    <FunctionImportMapping FunctionImportName="sp_ModificarEmpleado" FunctionName="PlanillaDBModel.Store.sp_ModificarEmpleado" />
+    <FunctionImportMapping FunctionImportName="sp_modificarIgss" FunctionName="PlanillaDBModel.Store.sp_modificarIgss" />
+    <FunctionImportMapping FunctionImportName="sp_ModificarRetencion" FunctionName="PlanillaDBModel.Store.sp_ModificarRetencion" />
+    <FunctionImportMapping FunctionImportName="sp_modificarSalarioOrdinairo" FunctionName="PlanillaDBModel.Store.sp_modificarSalarioOrdinairo" />
+  </EntityContainerMapping>
+</Mapping>

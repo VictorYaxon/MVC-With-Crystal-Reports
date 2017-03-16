@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlanillaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bonificacion">
+    <Key>
+      <PropertyRef Name="idBonificacion" />
+    </Key>
+    <Property Name="idBonificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BonificacionEmpleado" Type="Single" Nullable="false" />
+    <Property Name="fechaBonificacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Empleado" Relationship="Self.FK__Bonificac__idEmp__173876EA" FromRole="Bonificacion" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="idEmpleado" />
+    </Key>
+    <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bonificacion" Type="Single" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Estado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idUsuario" Type="Int32" />
+    <NavigationProperty Name="Bonificacion1" Relationship="Self.FK__Bonificac__idEmp__173876EA" FromRole="Empleado" ToRole="Bonificacion" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Empleado__idUsua__1273C1CD" FromRole="Empleado" ToRole="Usuario" />
+    <NavigationProperty Name="RetencionISR" Relationship="Self.FK__Retencion__idEmp__1A14E395" FromRole="Empleado" ToRole="RetencionISR" />
+  </EntityType>
+  <EntityType Name="Igss">
+    <Key>
+      <PropertyRef Name="idIgss" />
+    </Key>
+    <Property Name="idIgss" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="anio" Type="Int32" Nullable="false" />
+    <Property Name="Cuotaigss" Type="Single" Nullable="false" />
+  </EntityType>
+  <EntityType Name="planillaSQL">
+    <Key>
+      <PropertyRef Name="idPlanilla" />
+    </Key>
+    <Property Name="idPlanilla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idEmpleado" Type="Int32" />
+    <Property Name="BonificacionEmpleado" Type="Single" />
+    <Property Name="anio" Type="Int32" />
+    <Property Name="CuotaSalarioOrdinario" Type="Single" />
+    <Property Name="total" Type="Single" />
+    <Property Name="RetencionEmpleado" Type="Single" />
+    <Property Name="CuotaIgss" Type="Single" />
+    <Property Name="liquido" Type="Single" />
+    <Property Name="fechaGenerada" Type="DateTime" Precision="0" />
+    <Property Name="mes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RetencionISR">
+    <Key>
+      <PropertyRef Name="idRetencionISR" />
+    </Key>
+    <Property Name="idRetencionISR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RetencionEmpleado" Type="Single" Nullable="false" />
+    <Property Name="fechaRetencion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Empleado" Relationship="Self.FK__Retencion__idEmp__1A14E395" FromRole="RetencionISR" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="SalarioOrdinario">
+    <Key>
+      <PropertyRef Name="idSalarioOrdinario" />
+    </Key>
+    <Property Name="idSalarioOrdinario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="anio" Type="Int32" Nullable="false" />
+    <Property Name="CuotaSalarioOrdinario" Type="Single" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Empleado" Relationship="Self.FK__Empleado__idUsua__1273C1CD" FromRole="Usuario" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="FK__Bonificac__idEmp__173876EA">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="Bonificacion" Type="Self.Bonificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="idEmpleado" />
+      </Principal>
+      <Dependent Role="Bonificacion">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Empleado__idUsua__1273C1CD">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Retencion__idEmp__1A14E395">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="RetencionISR" Type="Self.RetencionISR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="idEmpleado" />
+      </Principal>
+      <Dependent Role="RetencionISR">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PlanillaDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bonificacion" EntityType="Self.Bonificacion" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+    <EntitySet Name="Igss" EntityType="Self.Igss" />
+    <EntitySet Name="planillaSQL" EntityType="Self.planillaSQL" />
+    <EntitySet Name="RetencionISR" EntityType="Self.RetencionISR" />
+    <EntitySet Name="SalarioOrdinario" EntityType="Self.SalarioOrdinario" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Bonificac__idEmp__173876EA" Association="Self.FK__Bonificac__idEmp__173876EA">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Bonificacion" EntitySet="Bonificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Empleado__idUsua__1273C1CD" Association="Self.FK__Empleado__idUsua__1273C1CD">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Retencion__idEmp__1A14E395" Association="Self.FK__Retencion__idEmp__1A14E395">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="RetencionISR" EntitySet="RetencionISR" />
+    </AssociationSet>
+    <FunctionImport Name="sp_AgregarEmpleado">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Apellido" Mode="In" Type="String" />
+      <Parameter Name="FechaInicio" Mode="In" Type="String" />
+      <Parameter Name="Estado" Mode="In" Type="String" />
+      <Parameter Name="idusuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarIgss">
+      <Parameter Name="anio" Mode="In" Type="Int32" />
+      <Parameter Name="CuotaIgss" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_agregarRetencion">
+      <Parameter Name="RetencionEmpleado" Mode="In" Type="String" />
+      <Parameter Name="idEmpleado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AgregarSalarioOrdinario">
+      <Parameter Name="anio" Mode="In" Type="Int32" />
+      <Parameter Name="CuotaSalarioOrdinario" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AutenticarUsuario" ReturnType="Collection(PlanillaDBModel.sp_AutenticarUsuario_Result)">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="userpassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarBonificaion">
+      <Parameter Name="idBonificacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_eliminarEmpleados">
+      <Parameter Name="idEmpleado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarIgss">
+      <Parameter Name="idIgss" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarRetencion">
+      <Parameter Name="idRetencionISR" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EliminarSalarioOrdinario">
+      <Parameter Name="idSalarioOrdinario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_listarBonificacion" ReturnType="Collection(PlanillaDBModel.sp_listarBonificacion_Result)" />
+    <FunctionImport Name="sp_ListarEmpleados" ReturnType="Collection(PlanillaDBModel.sp_ListarEmpleados_Result)" />
+    <FunctionImport Name="sp_listarIgss" ReturnType="Collection(PlanillaDBModel.sp_listarIgss_Result)" />
+    <FunctionImport Name="sp_ListarPlanilla" ReturnType="Collection(PlanillaDBModel.sp_ListarPlanilla_Result)">
+      <Parameter Name="Anio" Mode="In" Type="Int32" />
+      <Parameter Name="Mes" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_listarRetencion" ReturnType="Collection(PlanillaDBModel.sp_listarRetencion_Result)" />
+    <FunctionImport Name="sp_listarSalarioOrdinario" ReturnType="Collection(PlanillaDBModel.sp_listarSalarioOrdinario_Result)" />
+    <FunctionImport Name="sp_ListarUsuarios" ReturnType="Collection(PlanillaDBModel.sp_ListarUsuarios_Result)" />
+    <FunctionImport Name="sp_ModificarBonificacion">
+      <Parameter Name="idBonificacion" Mode="In" Type="Int32" />
+      <Parameter Name="BonificacionEmpleado" Mode="In" Type="String" />
+      <Parameter Name="idEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ModificarEmpleado">
+      <Parameter Name="idEmpleado" Mode="In" Type="Int32" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="apellido" Mode="In" Type="String" />
+      <Parameter Name="Estado" Mode="In" Type="String" />
+      <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_modificarIgss">
+      <Parameter Name="idIgss" Mode="In" Type="Int32" />
+      <Parameter Name="anio" Mode="In" Type="Int32" />
+      <Parameter Name="CuotaIgss" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ModificarRetencion">
+      <Parameter Name="idRetencion" Mode="In" Type="Int32" />
+      <Parameter Name="RetencionEmpleado" Mode="In" Type="String" />
+      <Parameter Name="idEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_modificarSalarioOrdinairo">
+      <Parameter Name="idSalarioOrdinario" Mode="In" Type="Int32" />
+      <Parameter Name="anio" Mode="In" Type="Int32" />
+      <Parameter Name="CuotaSalarioOrdinario" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_AutenticarUsuario_Result">
+    <Property Type="Int32" Name="idUsuario" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Apellido" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="40" />
+  </ComplexType>
+  <ComplexType Name="sp_listarBonificacion_Result">
+    <Property Type="Int32" Name="idBonificacion" Nullable="false" />
+    <Property Type="Single" Name="BonificacionEmpleado" Nullable="false" />
+    <Property Type="DateTime" Name="fechaBonificacion" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="80" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarEmpleados_Result">
+    <Property Type="Int32" Name="idEmpleado" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="80" />
+    <Property Type="String" Name="Apellido" Nullable="false" MaxLength="80" />
+    <Property Type="DateTime" Name="FechaInicio" Nullable="false" />
+    <Property Type="String" Name="Estado" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="idUsuario" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_listarIgss_Result">
+    <Property Type="Int32" Name="idIgss" Nullable="false" />
+    <Property Type="Int32" Name="anio" Nullable="false" />
+    <Property Type="Single" Name="Cuotaigss" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarPlanilla_Result">
+    <Property Type="Int32" Name="idPlanilla" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="80" />
+    <Property Type="String" Name="Apellido" Nullable="false" MaxLength="80" />
+    <Property Type="Int32" Name="anio" Nullable="true" />
+    <Property Type="Single" Name="BonificacionEmpleado" Nullable="true" />
+    <Property Type="Single" Name="CuotaSalarioOrdinario" Nullable="true" />
+    <Property Type="Single" Name="total" Nullable="true" />
+    <Property Type="Single" Name="RetencionEmpleado" Nullable="true" />
+    <Property Type="Single" Name="CuotaIgss" Nullable="true" />
+    <Property Type="Single" Name="liquido" Nullable="true" />
+    <Property Type="DateTime" Name="fechaGenerada" Nullable="true" />
+    <Property Type="String" Name="mes" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_listarRetencion_Result">
+    <Property Type="Int32" Name="idRetencionISR" Nullable="false" />
+    <Property Type="Single" Name="RetencionEmpleado" Nullable="false" />
+    <Property Type="DateTime" Name="fechaRetencion" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="80" />
+  </ComplexType>
+  <ComplexType Name="sp_listarSalarioOrdinario_Result">
+    <Property Type="Int32" Name="idSalarioOrdinario" Nullable="false" />
+    <Property Type="Int32" Name="anio" Nullable="false" />
+    <Property Type="Single" Name="CuotaSalarioOrdinario" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ListarUsuarios_Result">
+    <Property Type="Int32" Name="idUsuario" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="password" Nullable="false" MaxLength="40" />
+  </ComplexType>
+</Schema>

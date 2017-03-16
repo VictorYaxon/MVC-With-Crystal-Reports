@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlanillaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bonificacion">
+    <Key>
+      <PropertyRef Name="idBonificacion" />
+    </Key>
+    <Property Name="idBonificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BonificacionEmpleado" Type="real" Nullable="false" />
+    <Property Name="fechaBonificacion" Type="date" Nullable="false" />
+    <Property Name="idEmpleado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="idEmpleado" />
+    </Key>
+    <Property Name="idEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Bonificacion" Type="real" />
+    <Property Name="FechaInicio" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="idUsuario" Type="int" />
+  </EntityType>
+  <EntityType Name="Igss">
+    <Key>
+      <PropertyRef Name="idIgss" />
+    </Key>
+    <Property Name="idIgss" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="anio" Type="int" Nullable="false" />
+    <Property Name="Cuotaigss" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="planillaSQL">
+    <Key>
+      <PropertyRef Name="idPlanilla" />
+    </Key>
+    <Property Name="idPlanilla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idEmpleado" Type="int" />
+    <Property Name="BonificacionEmpleado" Type="real" />
+    <Property Name="anio" Type="int" />
+    <Property Name="CuotaSalarioOrdinario" Type="real" />
+    <Property Name="total" Type="real" />
+    <Property Name="RetencionEmpleado" Type="real" />
+    <Property Name="CuotaIgss" Type="real" />
+    <Property Name="liquido" Type="real" />
+    <Property Name="fechaGenerada" Type="date" />
+    <Property Name="mes" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RetencionISR">
+    <Key>
+      <PropertyRef Name="idRetencionISR" />
+    </Key>
+    <Property Name="idRetencionISR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RetencionEmpleado" Type="real" Nullable="false" />
+    <Property Name="fechaRetencion" Type="date" Nullable="false" />
+    <Property Name="idEmpleado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalarioOrdinario">
+    <Key>
+      <PropertyRef Name="idSalarioOrdinario" />
+    </Key>
+    <Property Name="idSalarioOrdinario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="anio" Type="int" Nullable="false" />
+    <Property Name="CuotaSalarioOrdinario" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Bonificac__idEmp__173876EA">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="Bonificacion" Type="Self.Bonificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="idEmpleado" />
+      </Principal>
+      <Dependent Role="Bonificacion">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Empleado__idUsua__1273C1CD">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Retencion__idEmp__1A14E395">
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+    <End Role="RetencionISR" Type="Self.RetencionISR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="idEmpleado" />
+      </Principal>
+      <Dependent Role="RetencionISR">
+        <PropertyRef Name="idEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_AgregarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Apellido" Type="varchar" Mode="In" />
+    <Parameter Name="FechaInicio" Type="varchar" Mode="In" />
+    <Parameter Name="Estado" Type="varchar" Mode="In" />
+    <Parameter Name="idusuario" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarIgss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="anio" Type="int" Mode="In" />
+    <Parameter Name="CuotaIgss" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_agregarRetencion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RetencionEmpleado" Type="varchar" Mode="In" />
+    <Parameter Name="idEmpleado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AgregarSalarioOrdinario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="anio" Type="int" Mode="In" />
+    <Parameter Name="CuotaSalarioOrdinario" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AutenticarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="userpassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarBonificaion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idBonificacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_eliminarEmpleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idEmpleado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarIgss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idIgss" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarRetencion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idRetencionISR" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarSalarioOrdinario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idSalarioOrdinario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_listarBonificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ListarEmpleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_listarIgss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ListarPlanilla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Anio" Type="int" Mode="In" />
+    <Parameter Name="Mes" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_listarRetencion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_listarSalarioOrdinario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ListarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ModificarBonificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idBonificacion" Type="int" Mode="In" />
+    <Parameter Name="BonificacionEmpleado" Type="varchar" Mode="In" />
+    <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ModificarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idEmpleado" Type="int" Mode="In" />
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="apellido" Type="varchar" Mode="In" />
+    <Parameter Name="Estado" Type="varchar" Mode="In" />
+    <Parameter Name="idUsuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_modificarIgss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idIgss" Type="int" Mode="In" />
+    <Parameter Name="anio" Type="int" Mode="In" />
+    <Parameter Name="CuotaIgss" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ModificarRetencion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idRetencion" Type="int" Mode="In" />
+    <Parameter Name="RetencionEmpleado" Type="varchar" Mode="In" />
+    <Parameter Name="idEmpleado" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_modificarSalarioOrdinairo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idSalarioOrdinario" Type="int" Mode="In" />
+    <Parameter Name="anio" Type="int" Mode="In" />
+    <Parameter Name="CuotaSalarioOrdinario" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PlanillaDBModelStoreContainer">
+    <EntitySet Name="Bonificacion" EntityType="Self.Bonificacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Igss" EntityType="Self.Igss" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="planillaSQL" EntityType="Self.planillaSQL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RetencionISR" EntityType="Self.RetencionISR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalarioOrdinario" EntityType="Self.SalarioOrdinario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Bonificac__idEmp__173876EA" Association="Self.FK__Bonificac__idEmp__173876EA">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Bonificacion" EntitySet="Bonificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Empleado__idUsua__1273C1CD" Association="Self.FK__Empleado__idUsua__1273C1CD">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Retencion__idEmp__1A14E395" Association="Self.FK__Retencion__idEmp__1A14E395">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="RetencionISR" EntitySet="RetencionISR" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
